@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Supermarket_Management_System.Models;
 
 namespace Supermarket_Management_System.Controllers
 {
@@ -11,14 +12,17 @@ namespace Supermarket_Management_System.Controllers
 
         public IActionResult Edit(int? id)
         {
-            if(id.HasValue)
-            {
-                return new ContentResult { Content = "The id of this product is: " + id.ToString() };
-            }
-            else
-            {
-                return new ContentResult { Content = "Null content" };
-            }
+            var category = new Category {CategoryID = id.HasValue?id.Value:0 };
+
+            return View(category);
+            //if(id.HasValue)
+            //{
+            //    return new ContentResult { Content = "The id of this product is: " + id.ToString() };
+            //}
+            //else
+            //{
+            //    return new ContentResult { Content = "Null content" };
+            //}
             
         }
     }

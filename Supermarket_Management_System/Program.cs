@@ -10,11 +10,13 @@ namespace Supermarket_Management_System
 
             var app = builder.Build();
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=index}/{id?}");
+                pattern: "{controller=home}/{action=index}/{id?}");
 
             app.Run();
         }
