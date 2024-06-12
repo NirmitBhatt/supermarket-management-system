@@ -8,33 +8,8 @@
     
 }
 
-<form method="post" asp-controller="categories" asp-action="edit">
-    <input type="hidden" asp-for="CategoryID" />
-    <div class="text-danger" asp-validation-summary="All"></div>
-    <div class="row mb-3">
-        <div class="col-2">
-            <label asp-for="Name" class="col-form-label"></label>
-        </div>
-        <div class="col-6">
-            <input type="text" asp-for="Name" class="form-control" />
-        </div>
-        <div class="col">
-            <span class="text-danger" asp-validation-for="Name"></span>
-        </div>
-    </div>
+@if (Model != null)
+{
+    <partial name="_Category" model="@Model" />
+}
 
-    <div class="row mb-3">
-        <div class="col-2">
-            <label asp-for="Description" class="col-form-label"></label>
-        </div>
-        <div class="col-6">
-            <input type="text" asp-for="Description" class="form-control" />
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-2">
-            <input type="submit" class="btn btn-primary" value="Save" />
-        </div>
-    </div>
-</form>
