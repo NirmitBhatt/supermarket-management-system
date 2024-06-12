@@ -43,5 +43,11 @@ namespace Supermarket_Management_System.Controllers
             }
             return View(category);
         }
+
+        public IActionResult Delete(int id)
+        {
+            CategoriesRepository.DeleteCategory(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
