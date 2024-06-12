@@ -11,20 +11,37 @@ namespace Supermarket_Management_System.Controllers
             return View(categories);
         }
 
-        public IActionResult Edit(int? id)
+        public IActionResult Edit([FromRoute] int? id)
         {
-            var category = new Category {CategoryID = id.HasValue?id.Value:0 };
-
+            var category = CategoriesRepository.GetCategoryByID(id.HasValue?id.Value:0);
             return View(category);
-            //if(id.HasValue)
-            //{
-            //    return new ContentResult { Content = "The id of this product is: " + id.ToString() };
-            //}
-            //else
-            //{
-            //    return new ContentResult { Content = "Null content" };
-            //}
-            
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            if(ModelState.IsValid)
+            {
+                CategoriesRepository.UpdateCategory(category.CategoryID, category);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(category); 
+        }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add([FromForm]Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                CategoriesRepository.AddCategory(category);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(category);
         }
     }
 }
