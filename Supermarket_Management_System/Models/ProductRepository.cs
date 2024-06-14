@@ -30,5 +30,12 @@
             }
         }
 
+        public static void AddProduct(Product product)
+        {
+            var maxID = _products.Max(p => p.ProductID);
+            product.ProductID = maxID + 1;
+            _products.Add(product);
+        }
+
     }
 }
