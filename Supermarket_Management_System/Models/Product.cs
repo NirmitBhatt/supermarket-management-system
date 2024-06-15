@@ -15,10 +15,10 @@ namespace Supermarket_Management_System.Models
         public string ProductName {  get; set; } = string.Empty;
 
         [Required]
-        [Range(0, int.MaxValue)]
+        [Range(0, int.MaxValue, ErrorMessage ="The price of the product cannot be negative!")]
         public double? Price { get; set; }
 
-        [Required]
+        [Required, Range(1, int.MaxValue, ErrorMessage = "Cannot add product with less than 1 quantity")]
         public int? Quantity {  get; set; }
 
         public Category? Category {  get; set; } 

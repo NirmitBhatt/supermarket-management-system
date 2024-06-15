@@ -23,14 +23,15 @@ namespace Supermarket_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Product product)
+        public IActionResult Add(ProductViewModel productViewModel)
         {
-            if (product != null)
+            if (ModelState.IsValid)
             {
-                ProductRepository.AddProduct(product);
+                ProductRepository.AddProduct(productViewModel.Product);
                 return RedirectToAction(nameof(Index));
             }
-            return View();
+            productViewModel.Categories = CategoriesRepository.GetCategory();
+            return View(productViewModel);
         }
     }
 }
