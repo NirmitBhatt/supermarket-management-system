@@ -33,5 +33,28 @@ namespace Supermarket_Management_System.Controllers
             productViewModel.Categories = CategoriesRepository.GetCategory();
             return View(productViewModel);
         }
+
+        public IActionResult Edit(int productID)
+        {
+            var productViewModel = new ProductViewModel()
+            {
+                Categories = CategoriesRepository.GetCategory(),
+                Product = ProductRepository.GetProductsByID(productID) ?? new Product()
+            };
+            //var product = ProductRepository.GetProductsByID(productID, loadCategory: true);
+            return View(productViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ProductViewModel productViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                ProductRepository.UpdateProduct(productViewModel.Product.ProductID, productViewModel.Product);
+                return RedirectToAction(nameof(Index));
+            }
+            productViewModel.Categories = CategoriesRepository.GetCategory();
+            return View(productViewModel);
+        }
     }
 }

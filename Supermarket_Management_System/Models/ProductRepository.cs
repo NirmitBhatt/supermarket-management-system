@@ -30,11 +30,50 @@
             }
         }
 
+        public static Product? GetProductsByID(int productID, bool loadCategory = false)
+        {
+            var product = _products.FirstOrDefault(x => x.ProductID == productID);
+            if (product != null)
+            {
+                var prod = new Product
+                {
+                    ProductID = product.ProductID,
+                    ProductName = product.ProductName,
+                    Quantity = product.Quantity,
+                    Price = product.Price,
+                    CategoryID = product.CategoryID,
+                };
+
+                if (loadCategory && prod.CategoryID.HasValue)
+                {
+                    prod.Category = CategoriesRepository.GetCategoryByID(prod.CategoryID.Value);
+                }
+
+                return prod;
+            }
+            
+            return null;
+        }
+
         public static void AddProduct(Product product)
         {
             var maxID = _products.Max(p => p.ProductID);
             product.ProductID = maxID + 1;
             _products.Add(product);
+        }
+
+        public static void UpdateProduct(int productID, Product product)
+        {
+            if (productID != product.ProductID) return;
+
+            var productToUpdate = _products.FirstOrDefault(x => x.ProductID == productID);
+            if (productToUpdate != null)
+            {
+                productToUpdate.ProductName = product.ProductName;
+                productToUpdate.Quantity = product.Quantity;
+                productToUpdate.Price = product.Price;
+                productToUpdate.CategoryID = product.CategoryID;
+            }
         }
 
     }

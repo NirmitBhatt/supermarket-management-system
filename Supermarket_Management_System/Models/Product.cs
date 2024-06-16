@@ -12,6 +12,7 @@ namespace Supermarket_Management_System.Models
         public int? CategoryID { get; set; }
 
         [Required]
+        [Display(Name = "Name")]
         public string ProductName {  get; set; } = string.Empty;
 
         [Required]

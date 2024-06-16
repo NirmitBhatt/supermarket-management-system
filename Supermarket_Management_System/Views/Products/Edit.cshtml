@@ -1,0 +1,54 @@
+﻿@model ProductViewModel 
+@section title{
+    @if (Model != null)
+    {
+        <h3>Edit Product: @Model.Product?.ProductName</h3>
+    }
+ }
+
+ <form method="post" asp-controller="products" asp-action="edit">
+     <input type="hidden" asp-for="Product.ProductID" />
+     <div class="text-danger" asp-validation-summary="All"></div>
+    <div class="row mb-3">
+        <div class="col-2">
+            <label class="col-form-label" asp-for="Product.CategoryID"></label>
+        </div>
+        <div class="col-6">
+            <select type="text" class="form-control" asp-for="Product.CategoryID">
+                <option>-  Please Select  -</option>
+                @if (Model.Categories != null && Model.Categories.Count() > 0)
+                    @foreach (var cat in Model.Categories)
+                    {
+                        <option value="@cat.CategoryID">@cat.Name</option>
+                    }
+            </select>
+        </div>
+    </div>
+     
+     <div class="row mb-3">
+         <div class="col-2">
+             <label class="col-form-label" asp-for="Product.ProductName"></label>
+         </div>
+        <div class="col-6">
+            <input type="text" class="form-control" asp-for="Product.ProductName"></input>
+        </div>
+     </div>
+
+    <div class="row mb-3">
+        <div class="col-2">
+            <label class="col-form-label" asp-for="Product.Price"></label>
+        </div>
+        <div class="col-6">
+            <input type="number" class="form-control" asp-for="Product.Price" step="any"></input>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-2">
+            <label class="col-form-label" asp-for="Product.Quantity"></label>
+        </div>
+        <div class="col-6">
+            <input type="number" class="form-control" asp-for="Product.Quantity" step="any"></input>
+        </div>
+    </div>
+ </form>
