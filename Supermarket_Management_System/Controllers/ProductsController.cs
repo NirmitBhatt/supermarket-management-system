@@ -36,7 +36,7 @@ namespace Supermarket_Management_System.Controllers
             return View(productViewModel);
         }
 
-        public IActionResult Edit([FromRoute] int productID)
+        public IActionResult Edit(int productID)
         {
             ViewBag.ActionName = "edit";
             var productViewModel = new ProductViewModel()
@@ -56,7 +56,7 @@ namespace Supermarket_Management_System.Controllers
                 ProductRepository.UpdateProduct(productViewModel.Product.ProductID, productViewModel.Product);
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.ActionName = "esit";
+            ViewBag.ActionName = "edit";
             productViewModel.Categories = CategoriesRepository.GetCategory();
             return View(productViewModel);
         }
@@ -65,6 +65,12 @@ namespace Supermarket_Management_System.Controllers
         {
             ProductRepository.DeleteProduct(productID);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult ProductsByCategoryPartial(int categoryID)
+        {
+            var products = ProductRepository.GetProductsByCategoryID(categoryID);
+            return PartialView("_ProductsByCategoryID", products);
         }
     }
 }

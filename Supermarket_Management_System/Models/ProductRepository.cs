@@ -57,8 +57,16 @@
 
         public static void AddProduct(Product product)
         {
-            var maxID = _products.Max(p => p.ProductID);
-            product.ProductID = maxID + 1;
+            if(_products != null && _products.Count > 0)
+            {
+                var maxID = _products.Max(p => p.ProductID);
+                product.ProductID = maxID + 1;
+            }
+            else
+            {
+                product.ProductID = 1;
+            }
+            _products ??= new List<Product>();
             _products.Add(product);
         }
 
@@ -84,6 +92,12 @@
                 return;
             }
             _products.Remove(product);
+        }
+
+        public static List<Product> GetProductsByCategoryID(int categoryID)
+        {
+            var products = _products.Where(cat => cat.CategoryID == categoryID).ToList();
+            return products;
         }
 
     }

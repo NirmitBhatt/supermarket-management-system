@@ -1,7 +1,7 @@
 ﻿@model ProductViewModel
 
 @{
-    var actionName = ViewBag.ActionName;
+    string actionName = ViewBag.ActionName;
 }
 
 <form method="post" asp-controller="products" asp-action="@actionName">

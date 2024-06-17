@@ -28,8 +28,16 @@
 
         public static void AddCategory(Category category)
         {
-            var maxID = _categories.Max(c => c.CategoryID);
-            category.CategoryID = maxID + 1;
+            if(_categories != null && _categories.Count > 0)
+            {
+                var maxID = _categories.Max(c => c.CategoryID);
+                category.CategoryID = maxID + 1;
+            }
+            else
+            {
+                category.CategoryID = 1;
+            }
+            _categories ??= new List<Category>();
             _categories.Add(category);
         }
 
