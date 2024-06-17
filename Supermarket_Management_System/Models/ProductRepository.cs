@@ -76,5 +76,15 @@
             }
         }
 
+        public static void DeleteProduct(int productID)
+        {
+            var product = _products.FirstOrDefault(x => x.ProductID == productID);
+            if (product == null)
+            {
+                return;
+            }
+            _products.Remove(product);
+        }
+
     }
 }

@@ -6,67 +6,7 @@
     }
  }
 
- <form method="post" asp-controller="products" asp-action="edit">
-     <input type="hidden" asp-for="Product.ProductID" />
-     <div class="text-danger" asp-validation-summary="All"></div>
-    <div class="row mb-3">
-        <div class="col-2">
-            <label class="col-form-label" asp-for="Product.CategoryID"></label>
-        </div>
-        <div class="col-6">
-            <select type="text" class="form-control" asp-for="Product.CategoryID">
-                <option>-  Please Select  -</option>
-                @if (Model.Categories != null && Model.Categories.Count() > 0)
-                    @foreach (var cat in Model.Categories)
-                    {
-                        <option value="@cat.CategoryID">@cat.Name</option>
-                    }
-            </select>
-        </div>
-        <div class="col">
-            <span class="text-danger" asp-validation-for="Product.CategoryID"></span>
-        </div>
-    </div>
-     
-     <div class="row mb-3">
-         <div class="col-2">
-             <label class="col-form-label" asp-for="Product.ProductName"></label>
-         </div>
-        <div class="col-6">
-            <input type="text" class="form-control" asp-for="Product.ProductName"></input>
-        </div>
-        <div class="col">
-            <span class="text-danger" asp-validation-for="Product.ProductName"></span>
-        </div>
-     </div>
-
-    <div class="row mb-3">
-        <div class="col-2">
-            <label class="col-form-label" asp-for="Product.Price"></label>
-        </div>
-        <div class="col-6">
-            <input type="number" class="form-control" asp-for="Product.Price" step="any"></input>
-        </div>
-        <div class="col">
-            <span class="text-danger" asp-validation-for="Product.Price"></span>
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-2">
-            <label class="col-form-label" asp-for="Product.Quantity"></label>
-        </div>
-        <div class="col-6">
-            <input type="number" class="form-control" asp-for="Product.Quantity" step="any"></input>
-        </div>
-        <div class="col">
-            <span class="text-danger" asp-validation-for="Product.Quantity"></span>
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-2">
-            <input type="submit" class="btn btn-primary" value="Save" />
-        </div>
-    </div>
- </form>
+@if (Model != null)
+{
+    <partial name="_Product" model="@Model"></partial>
+}

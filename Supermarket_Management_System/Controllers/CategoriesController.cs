@@ -26,6 +26,7 @@ namespace Supermarket_Management_System.Controllers
                 CategoriesRepository.UpdateCategory(category.CategoryID, category);
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.ActionName = "edit";
             return View(category); 
         }
 
@@ -43,6 +44,7 @@ namespace Supermarket_Management_System.Controllers
                 CategoriesRepository.AddCategory(category);
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.ActionName = "add";
             return View(category);
         }
 
