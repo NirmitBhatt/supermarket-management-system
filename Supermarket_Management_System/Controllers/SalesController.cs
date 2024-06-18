@@ -14,5 +14,11 @@ namespace Supermarket_Management_System.Controllers
             };
             return View(salesViewModel);
         }
+
+        public IActionResult SellProductPartial(int productID)
+        {
+            var product = ProductRepository.GetProductsByID(productID);
+            return PartialView("_SellProduct", product);
+        }
     }
 }

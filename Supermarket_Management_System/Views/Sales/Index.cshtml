@@ -44,14 +44,13 @@
         $(function () {
             $("#SelectedCategoryID").on("change", function () {
                 $("#productsPartial").load("/products/ProductsByCategoryPartial", { categoryID: $(this).val() });
+                $("#selectedProductPartial").html("");
             })
 
             $("#productsPartial").on("click", ".product-row", function () {
                 $(".product-row").removeClass("highlight");
                 $(this).addClass("highlight");
-                //val productID = $(this).attr("product-id");
-                //alert(productID);
-                $("#selectedProductPartial").load("/products/DisplaySelectedProductDetailsPartial", { productID: $(this).attr("product-id") });
+                $("#selectedProductPartial").load("/sales/SellProductPartial", { productID: $(this).attr("product-id") });
             });
         });
     </script>
