@@ -28,7 +28,7 @@
             @*Product List*@
         </div>
         <br />
-        <div>
+        <div id="selectedProductPartial">
             @*Product Details*@
         </div>
         @*Sales form*@
@@ -49,6 +49,9 @@
             $("#productsPartial").on("click", ".product-row", function () {
                 $(".product-row").removeClass("highlight");
                 $(this).addClass("highlight");
+                //val productID = $(this).attr("product-id");
+                //alert(productID);
+                $("#selectedProductPartial").load("/products/DisplaySelectedProductDetailsPartial", { productID: $(this).attr("product-id") });
             });
         });
     </script>
