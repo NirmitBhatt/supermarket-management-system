@@ -1,4 +1,6 @@
 ﻿using Supermarket_Management_System.Models;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Supermarket_Management_System.ViewModels
 {
@@ -6,5 +8,10 @@ namespace Supermarket_Management_System.ViewModels
     {
         public int SelectedCategoryID { get; set; }
         public IEnumerable<Category> Categories { get; set; } = new List<Category>();
+        public int SelectedProductID { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Cannot add product with less than 1 quantity")]
+        [Display(Name = "Quantity")]
+        public int QuantityToSell { get; set; }
     }
 }

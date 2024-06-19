@@ -20,5 +20,17 @@ namespace Supermarket_Management_System.Controllers
             var product = ProductRepository.GetProductsByID(productID);
             return PartialView("_SellProduct", product);
         }
+
+        public IActionResult Sell(SalesViewModel salesViewModel)
+        {
+            if(ModelState.IsValid)
+            {
+                //return View(salesViewModel);
+            }
+            var product = ProductRepository.GetProductsByID(salesViewModel.SelectedProductID);
+            salesViewModel.SelectedCategoryID = (product?.CategoryID == null)? 0:product.CategoryID.Value;
+            salesViewModel.Categories = CategoriesRepository.GetCategory();
+            return View("Index", salesViewModel);
+        }
     }
 }

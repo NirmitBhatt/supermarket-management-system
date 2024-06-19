@@ -13,6 +13,7 @@
 <br />
 <div class="row">
     <div class="col-4">
+        <div class="text-danger" asp-validation-summary="All"></div>
         <select asp-for="SelectedCategoryID" class="form-control">
             <option>-  Please Select  -</option>
             @if(Model!=null && Model.Categories.Count() > 0)
@@ -32,6 +33,18 @@
             @*Product Details*@
         </div>
         @*Sales form*@
+        <form method="post" asp-controller="sales" asp-action="sell" id="form-sale">
+            <input type="hidden" asp-for="SelectedProductID" />
+
+            <div class="form-group">
+                <label asp-for="QuantityToSell"></label>
+                <input type="number" asp-for="QuantityToSell" class="form-control" min="1"/>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit" />
+            </div>
+        </form>
     </div>
 
     <div class="col">
@@ -42,16 +55,41 @@
 @section Scripts{
     <script>
         $(function () {
+
+            $("#form-sale").hide();
+            $("#QuantityToSell").val(1);
+
+            var selectedCategoryID = $("#SelectedCategoryID").val();
+            if (selectedCategoryID > 0) {
+                LoadProducts(selectedCategoryID);
+            }
+
             $("#SelectedCategoryID").on("change", function () {
-                $("#productsPartial").load("/products/ProductsByCategoryPartial", { categoryID: $(this).val() });
-                $("#selectedProductPartial").html("");
+                LoadProducts($(this).val());
             })
 
             $("#productsPartial").on("click", ".product-row", function () {
                 $(".product-row").removeClass("highlight");
                 $(this).addClass("highlight");
-                $("#selectedProductPartial").load("/sales/SellProductPartial", { productID: $(this).attr("product-id") });
+
+                var productID = $(this).attr("product-id")
+                $("#selectedProductPartial").load("/sales/SellProductPartial", { productID: productID });
+
+                if (productID > 0) {
+                    $("#SelectedProductID").val(productID);
+                    $("#form-sale").show();
+                }
+                else {
+                    $("#SelectedProductID").val("");
+                    $("#form-sale").hide();
+                }
             });
         });
+
+        function LoadProducts(categoryID) {
+            $("#productsPartial").load("/products/ProductsByCategoryPartial", { categoryID: categoryID });
+            $("#selectedProductPartial").html("");
+            $("#form-sale").hide();
+        }
     </script>
 }
