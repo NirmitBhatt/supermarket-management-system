@@ -26,6 +26,12 @@ namespace Supermarket_Management_System.Controllers
             if(ModelState.IsValid)
             {
                 //return View(salesViewModel);
+                var prod = ProductRepository.GetProductsByID(salesViewModel.SelectedProductID);
+                if(prod != null)
+                {
+                    prod.Quantity -= salesViewModel.QuantityToSell;
+                    ProductRepository.UpdateProduct(salesViewModel.SelectedProductID, prod);
+                }
             }
             var product = ProductRepository.GetProductsByID(salesViewModel.SelectedProductID);
             salesViewModel.SelectedCategoryID = (product?.CategoryID == null)? 0:product.CategoryID.Value;
