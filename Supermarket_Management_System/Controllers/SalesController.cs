@@ -29,6 +29,14 @@ namespace Supermarket_Management_System.Controllers
                 var prod = ProductRepository.GetProductsByID(salesViewModel.SelectedProductID);
                 if(prod != null)
                 {
+                    TransactionRepository.AddTransaction(
+                        "Cashier1",
+                        salesViewModel.SelectedProductID,
+                        prod.ProductName,
+                        prod.Price.HasValue ? prod.Price.Value : 0,
+                        prod.Quantity.HasValue ? prod.Quantity.Value : 0,
+                        salesViewModel.QuantityToSell);
+
                     prod.Quantity -= salesViewModel.QuantityToSell;
                     ProductRepository.UpdateProduct(salesViewModel.SelectedProductID, prod);
                 }
