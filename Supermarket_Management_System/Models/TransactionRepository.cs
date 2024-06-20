@@ -3,6 +3,21 @@
     public class TransactionRepository
     {
         private static List<Transaction> _transactions = new List<Transaction>();
+
+        public static IEnumerable<Transaction> GetByDayAndCashier(string cashierName, DateTime date)
+        {
+            if(string.IsNullOrWhiteSpace(cashierName))
+            {
+                return _transactions.Where(x => x.Timestamp.Date == date.Date);
+            }
+            else
+            {
+                return _transactions.Where(x => 
+                    x.CashierName.ToLower().Contains(cashierName.ToLower()) &&
+                    x.Timestamp.Date == date.Date);
+            }
+        }
+
         public static void AddTransaction(string cashierName, int productID, string productName, double price, int beforeQuantity, int soldQuantity)
         {
             var transaction = new Transaction
