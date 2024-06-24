@@ -58,5 +58,16 @@
                 </tr>
             }
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">&nbsp;</td>
+                <td style="text-align:right">
+                    <b>Grand Total:</b>
+                </td>
+                <td style="text-align:right">
+                    <b>@(string.Format("{0:c}", Model.Transactions.Sum(x => x.Price * x.SoldQuantity)))</b>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 }
