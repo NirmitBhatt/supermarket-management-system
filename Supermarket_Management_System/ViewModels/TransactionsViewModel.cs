@@ -7,7 +7,6 @@ namespace Supermarket_Management_System.ViewModels
 {
     public class TransactionsViewModel
     {
-        [Required]
         [Display(Name = "Cashier's Name")]
         public string? CashierName { get; set; }
 
