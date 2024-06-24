@@ -43,9 +43,18 @@
             _transactions?.Add(transaction);
         }
 
-        public static void SearchTransaction(string cashierName, DateTime startDate, DateTime endDate)
+        public static IEnumerable<Transaction> SearchTransaction(string cashierName, DateTime startDate, DateTime endDate)
         {
-
+            if(string.IsNullOrWhiteSpace(cashierName))
+            {
+                return _transactions.Where(x => x.Timestamp >= startDate.Date && x.Timestamp <= endDate.Date.AddDays(1).Date);
+            }
+            else
+            {
+                return _transactions.Where (x =>
+                    x.CashierName.ToLower().Contains(cashierName.ToLower()) &&
+                    x.Timestamp >= startDate.Date && x.Timestamp <= endDate.Date.AddDays(1).Date);
+            }
         }
     }
 }
