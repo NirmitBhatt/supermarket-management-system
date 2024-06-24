@@ -72,7 +72,10 @@
 
         public static void UpdateProduct(int productID, Product product)
         {
-            if (productID != product.ProductID) return;
+            if (productID != product.ProductID)
+            {
+                return;
+            }
 
             var productToUpdate = _products.FirstOrDefault(x => x.ProductID == productID);
             if (productToUpdate != null)

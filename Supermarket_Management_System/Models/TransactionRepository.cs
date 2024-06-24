@@ -42,5 +42,10 @@
             }
             _transactions?.Add(transaction);
         }
+
+        public static void SearchTransaction(string cashierName, DateTime startDate, DateTime endDate)
+        {
+
+        }
     }
 }

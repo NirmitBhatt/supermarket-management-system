@@ -22,6 +22,6 @@ namespace Supermarket_Management_System.Models
         [Required, Range(1, int.MaxValue, ErrorMessage = "Cannot add product with less than 1 quantity")]
         public int? Quantity {  get; set; }
 
-        public Category? Category {  get; set; } 
+        public Category? Category { get; set; }
     }
 }
