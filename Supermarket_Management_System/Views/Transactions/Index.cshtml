@@ -23,6 +23,8 @@
             <button type="submit" class="btn btn-primary form-control">Search</button>
         </div>
         <div class="col-2">
+            <label>&nbsp;</label>
+            <button id="printbutton" type="button" class="btn btn-primary form-control">Print</button>
         </div>
     </div>
 </form>
@@ -70,4 +72,14 @@
             </tr>
         </tfoot>
     </table>
+}
+
+@section Scripts{
+    <script>
+        $(function () {
+            $("#printbutton").on("click", function () {
+                window.print();
+            });
+        });
+    </script>
 }
