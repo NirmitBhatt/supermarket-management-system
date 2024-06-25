@@ -4,6 +4,7 @@
     <h3>Transactions Report</h3>
 }
 
+<div id="printarea">
 <form method="post" asp-controller="transactions" asp-action="search" id="transactions">
     <div class="row">
         <div class="col-2">
@@ -73,13 +74,14 @@
         </tfoot>
     </table>
 }
+</div>
 
 @section Scripts{
     <script>
         $(function () {
             $("#printbutton").on("click", function () {
                 window.print();
-            });
+            });  
         });
     </script>
 }
