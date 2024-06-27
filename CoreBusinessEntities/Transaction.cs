@@ -1,4 +1,4 @@
-﻿namespace Supermarket_Management_System.Models
+﻿namespace CoreBusinessEntities
 {
     public class Transaction
     {

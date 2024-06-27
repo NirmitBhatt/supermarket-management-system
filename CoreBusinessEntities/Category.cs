@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Supermarket_Management_System.Models
+namespace CoreBusinessEntities
 {
     public class Category
     {
