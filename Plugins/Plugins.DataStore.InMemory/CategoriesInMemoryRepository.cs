@@ -10,7 +10,7 @@ namespace Plugins.DataStore.InMemory
 {
     internal class CategoriesInMemoryRepository : ICategoryRepository
     {
-        public static List<Category> _categories = new()
+        public List<Category> _categories = new()
         {
             new Category {CategoryID = 1, Name = "Beverage", Description = "Beverage"},
             new Category {CategoryID = 2, Name = "Bakery", Description = "Bakery"},
