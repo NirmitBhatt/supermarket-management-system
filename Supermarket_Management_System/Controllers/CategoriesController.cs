@@ -7,7 +7,7 @@ namespace Supermarket_Management_System.Controllers
     {
         public IActionResult Index()
         {
-            var categories = CategoriesRepository.GetCategory();
+            var categories = CategoriesRepository.GetCategories();
             return View(categories);
         }
 

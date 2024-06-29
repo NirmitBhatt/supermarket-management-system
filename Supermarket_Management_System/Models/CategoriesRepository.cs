@@ -9,7 +9,7 @@
             new Category {CategoryID = 3, Name ="Meat", Description = "Meat"}
         };
 
-        public static List<Category> GetCategory() => _categories;
+        public static List<Category> GetCategories() => _categories;
 
         public static Category? GetCategoryByID(int categoryID)
         {

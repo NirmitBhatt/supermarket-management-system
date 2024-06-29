@@ -10,7 +10,7 @@ namespace Supermarket_Management_System.Controllers
         {
             var salesViewModel = new SalesViewModel
             {
-                Categories = CategoriesRepository.GetCategory()
+                Categories = CategoriesRepository.GetCategories()
             };
             return View(salesViewModel);
         }
@@ -43,7 +43,7 @@ namespace Supermarket_Management_System.Controllers
             }
             var product = ProductRepository.GetProductsByID(salesViewModel.SelectedProductID);
             salesViewModel.SelectedCategoryID = (product?.CategoryID == null)? 0:product.CategoryID.Value;
-            salesViewModel.Categories = CategoriesRepository.GetCategory();
+            salesViewModel.Categories = CategoriesRepository.GetCategories();
             return View("Index", salesViewModel);
         }
     }

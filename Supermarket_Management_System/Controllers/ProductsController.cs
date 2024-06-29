@@ -17,7 +17,7 @@ namespace Supermarket_Management_System.Controllers
             ViewBag.ActionName = "add";
             var productViewModel = new ProductViewModel()
             {
-                Categories = CategoriesRepository.GetCategory()
+                Categories = CategoriesRepository.GetCategories()
             };
 
             return View(productViewModel);
@@ -32,7 +32,7 @@ namespace Supermarket_Management_System.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewBag.ActionName = "add";
-            productViewModel.Categories = CategoriesRepository.GetCategory();
+            productViewModel.Categories = CategoriesRepository.GetCategories();
             return View(productViewModel);
         }
 
@@ -41,7 +41,7 @@ namespace Supermarket_Management_System.Controllers
             ViewBag.ActionName = "edit";
             var productViewModel = new ProductViewModel()
             {
-                Categories = CategoriesRepository.GetCategory(),
+                Categories = CategoriesRepository.GetCategories(),
                 Product = ProductRepository.GetProductsByID(productID) ?? new Product()
             };
             //var product = ProductRepository.GetProductsByID(productID, loadCategory: true);
@@ -57,7 +57,7 @@ namespace Supermarket_Management_System.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewBag.ActionName = "edit";
-            productViewModel.Categories = CategoriesRepository.GetCategory();
+            productViewModel.Categories = CategoriesRepository.GetCategories();
             return View(productViewModel);
         }
 
