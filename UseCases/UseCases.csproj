@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="TransactionsUseCases\" />
+    <Folder Include="ProductsUseCases\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreBusinessEntities\CoreBusinessEntities.csproj" />
+  </ItemGroup>
+
 </Project>
