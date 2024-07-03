@@ -1,23 +1,41 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Supermarket_Management_System.Models;
+using CoreBusinessEntities;
 using Supermarket_Management_System.ViewModels;
+using UseCases.CategoriesUseCases;
+using UseCases.ProductsUseCases;
+using UseCases.TransactionsUseCases;
 
 namespace Supermarket_Management_System.Controllers
 {
     public class SalesController : Controller
     {
+        private readonly IViewCategoriesUseCase viewCategoriesUseCase;
+        private readonly IViewSelectedProductUseCase viewSelectedProductUseCase;
+        private readonly IUpdateProductUseCase updateProductUseCase;
+        private readonly IAddTransactionUseCase addTransactionUseCase;
+
+        public SalesController(IViewCategoriesUseCase viewCategoriesUseCase,
+            IViewSelectedProductUseCase viewSelectedProductUseCase,
+            IUpdateProductUseCase updateProductUseCase,
+            IAddTransactionUseCase addTransactionUseCase)
+        {
+            this.viewCategoriesUseCase = viewCategoriesUseCase;
+            this.viewSelectedProductUseCase = viewSelectedProductUseCase;
+            this.updateProductUseCase = updateProductUseCase;
+            this.addTransactionUseCase = addTransactionUseCase;
+        }
         public IActionResult Index()
         {
             var salesViewModel = new SalesViewModel
             {
-                Categories = CategoriesRepository.GetCategories()
+                Categories = viewCategoriesUseCase.Execute()
             };
             return View(salesViewModel);
         }
 
         public IActionResult SellProductPartial(int productID)
         {
-            var product = ProductRepository.GetProductByID(productID);
+            var product = viewSelectedProductUseCase.Execute(productID);//ProductRepository.GetProductByID(productID);
             return PartialView("_SellProduct", product);
         }
 
@@ -26,10 +44,10 @@ namespace Supermarket_Management_System.Controllers
             if(ModelState.IsValid)
             {
                 //return View(salesViewModel);
-                var prod = ProductRepository.GetProductByID(salesViewModel.SelectedProductID);
+                var prod = viewSelectedProductUseCase.Execute(salesViewModel.SelectedProductID);//ProductRepository.GetProductByID(salesViewModel.SelectedProductID);
                 if(prod != null)
                 {
-                    TransactionRepository.AddTransaction(
+                    addTransactionUseCase.Execute(
                         "Cashier1",
                         salesViewModel.SelectedProductID,
                         prod.ProductName,
@@ -38,12 +56,12 @@ namespace Supermarket_Management_System.Controllers
                         salesViewModel.QuantityToSell);
 
                     prod.Quantity -= salesViewModel.QuantityToSell;
-                    ProductRepository.UpdateProduct(salesViewModel.SelectedProductID, prod);
+                    updateProductUseCase.Execute(salesViewModel.SelectedProductID, prod);//ProductRepository.UpdateProduct(salesViewModel.SelectedProductID, prod);
                 }
             }
-            var product = ProductRepository.GetProductByID(salesViewModel.SelectedProductID);
+            var product = viewSelectedProductUseCase.Execute(salesViewModel.SelectedProductID);
             salesViewModel.SelectedCategoryID = (product?.CategoryID == null)? 0:product.CategoryID.Value;
-            salesViewModel.Categories = CategoriesRepository.GetCategories();
+            salesViewModel.Categories = viewCategoriesUseCase.Execute();//CategoriesRepository.GetCategories();
             return View("Index", salesViewModel);
         }
     }

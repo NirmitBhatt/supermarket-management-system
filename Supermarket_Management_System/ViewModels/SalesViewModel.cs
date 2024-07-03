@@ -1,4 +1,4 @@
-﻿using Supermarket_Management_System.Models;
+﻿using CoreBusinessEntities;
 using Supermarket_Management_System.ViewModels.CustomValidations;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

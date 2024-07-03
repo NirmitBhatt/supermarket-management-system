@@ -1,24 +1,22 @@
-﻿namespace Supermarket_Management_System.Models
+﻿using CoreBusinessEntities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UseCases.DataStorePluginInterfaces;
+
+namespace Plugins.DataStore.InMemory
 {
-    public class TransactionRepository
+    public class TransactionsInMemoryRepository : ITransactionsRepository
     {
         private static List<Transaction> _transactions = new List<Transaction>();
-
-        public static IEnumerable<Transaction> GetByDayAndCashier(string cashierName, DateTime date)
-        {
-            if(string.IsNullOrWhiteSpace(cashierName))
-            {
-                return _transactions.Where(x => x.Timestamp.Date == date.Date);
-            }
-            else
-            {
-                return _transactions.Where(x => 
-                    x.CashierName.ToLower().Contains(cashierName.ToLower()) &&
-                    x.Timestamp.Date == date.Date);
-            }
-        }
-
-        public static void AddTransaction(string cashierName, int productID, string productName, double price, int beforeQuantity, int soldQuantity)
+        public void AddTransaction(string cashierName, 
+            int productID, 
+            string productName, 
+            double price, 
+            int beforeQuantity, 
+            int soldQuantity)
         {
             var transaction = new Transaction
             {
@@ -43,15 +41,29 @@
             _transactions?.Add(transaction);
         }
 
-        public static IEnumerable<Transaction> SearchTransaction(string cashierName, DateTime startDate, DateTime endDate)
+        public IEnumerable<Transaction> GetByDayAndCashier(string cashierName, DateTime date)
         {
-            if(string.IsNullOrWhiteSpace(cashierName))
+            if (string.IsNullOrWhiteSpace(cashierName))
+            {
+                return _transactions.Where(x => x.Timestamp.Date == date.Date);
+            }
+            else
+            {
+                return _transactions.Where(x =>
+                    x.CashierName.ToLower().Contains(cashierName.ToLower()) &&
+                    x.Timestamp.Date == date.Date);
+            }
+        }
+
+        public IEnumerable<Transaction> SearchTransaction(string cashierName, DateTime startDate, DateTime endDate)
+        {
+            if (string.IsNullOrWhiteSpace(cashierName))
             {
                 return _transactions.Where(x => x.Timestamp >= startDate.Date && x.Timestamp <= endDate.Date.AddDays(1).Date);
             }
             else
             {
-                return _transactions.Where (x =>
+                return _transactions.Where(x =>
                     x.CashierName.ToLower().Contains(cashierName.ToLower()) &&
                     x.Timestamp >= startDate.Date && x.Timestamp <= endDate.Date.AddDays(1).Date);
             }

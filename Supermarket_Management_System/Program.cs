@@ -2,6 +2,7 @@ using Plugins.DataStore.InMemory;
 using UseCases.CategoriesUseCases;
 using UseCases.DataStorePluginInterfaces;
 using UseCases.ProductsUseCases;
+using UseCases.TransactionsUseCases;
 
 namespace Supermarket_Management_System
 {
@@ -15,6 +16,7 @@ namespace Supermarket_Management_System
 
             builder.Services.AddSingleton<ICategoryRepository, CategoriesInMemoryRepository>();
             builder.Services.AddSingleton<IProductRepository, ProductsInMemoryRepository>();
+            builder.Services.AddSingleton<ITransactionsRepository, TransactionsInMemoryRepository>();
 
             builder.Services.AddTransient<IAddCategoryUseCase, AddCategoryUseCase>();
             builder.Services.AddTransient<IDeleteCategoryUseCase, DeleteCategoryUseCase>();
@@ -28,6 +30,10 @@ namespace Supermarket_Management_System
             builder.Services.AddTransient<IViewProductsInCategoryUseCase, ViewProductsInCategoryUseCase>();
             builder.Services.AddTransient<IViewProductsUseCase, ViewProductsUseCase>();
             builder.Services.AddTransient<IViewSelectedProductUseCase, ViewSelectedProductUseCase>();
+
+            builder.Services.AddTransient<IAddTransactionUseCase, AddTransactionUseCase>();
+            builder.Services.AddTransient<IGetTransactionsByDateAndCashierUseCase,  GetTransactionsByDateAndCashierUseCase>();
+            builder.Services.AddTransient<ISearchTransactionUseCase, SearchTransactionUseCase>();
 
             var app = builder.Build();
 

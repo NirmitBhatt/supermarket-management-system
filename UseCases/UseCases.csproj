@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="TransactionsUseCases\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CoreBusinessEntities\CoreBusinessEntities.csproj" />
   </ItemGroup>
 

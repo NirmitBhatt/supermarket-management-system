@@ -1,4 +1,4 @@
-﻿using Supermarket_Management_System.Models;
+﻿using CoreBusinessEntities;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
