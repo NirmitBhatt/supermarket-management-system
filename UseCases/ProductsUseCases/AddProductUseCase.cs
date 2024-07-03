@@ -8,7 +8,7 @@ using UseCases.DataStorePluginInterfaces;
 
 namespace UseCases.ProductsUseCases
 {
-    public class AddProductUseCase
+    public class AddProductUseCase : IAddProductUseCase
     {
         private readonly IProductRepository productRepository;
 

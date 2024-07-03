@@ -4,12 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UseCases.CategoriesUseCases;
 using UseCases.DataStorePluginInterfaces;
 
 namespace Plugins.DataStore.InMemory
 {
     public class ProductsInMemoryRepository : IProductRepository
     {
+        private readonly IViewSelectedCategoryUseCase viewSelectedCategoryUseCase;
+        public ProductsInMemoryRepository(IViewSelectedCategoryUseCase viewSelectedCategoryUseCase)
+        {
+            this.viewSelectedCategoryUseCase = viewSelectedCategoryUseCase;
+        }
 
         private List<Product> _products = new()
         {
@@ -25,7 +31,6 @@ namespace Plugins.DataStore.InMemory
             {
                 var maxID = _products.Max(p => p.ProductID);
                 product.ProductID = maxID + 1;
-                _products.Add(product);
             }
             else
             {
@@ -61,7 +66,7 @@ namespace Plugins.DataStore.InMemory
 
                 if (loadCategory && prod.CategoryID.HasValue)
                 {
-                    //prod.Category = CategoriesRepository.GetCategoryByID(prod.CategoryID.Value);
+                    prod.Category = viewSelectedCategoryUseCase.Execute(prod.CategoryID.Value); //CategoriesRepository.GetCategoryByID(prod.CategoryID.Value);
                 }
 
                 return prod;
@@ -79,14 +84,14 @@ namespace Plugins.DataStore.InMemory
                 }
                 else
                 {
-                    //if (_products != null && _products.Count() > 0)
-                    //{
-                    //    _products.ForEach(product =>
-                    //    {
-                    //        if (product.CategoryID.HasValue)
-                    //            product.Category = CategoriesRepository.GetCategoryByID(product.CategoryID.Value);
-                    //    });
-                    //}
+                    if (_products != null && _products.Count() > 0)
+                    {
+                        _products.ForEach(product =>
+                        {
+                            if (product.CategoryID.HasValue)
+                                product.Category = viewSelectedCategoryUseCase.Execute(product.CategoryID.Value);
+                        });
+                    }
                     return _products ?? new List<Product>();
                 }
             }
