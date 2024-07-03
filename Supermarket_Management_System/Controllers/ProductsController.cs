@@ -42,7 +42,7 @@ namespace Supermarket_Management_System.Controllers
             var productViewModel = new ProductViewModel()
             {
                 Categories = CategoriesRepository.GetCategories(),
-                Product = ProductRepository.GetProductsByID(productID) ?? new Product()
+                Product = ProductRepository.GetProductByID(productID) ?? new Product()
             };
             //var product = ProductRepository.GetProductsByID(productID, loadCategory: true);
             return View(productViewModel);

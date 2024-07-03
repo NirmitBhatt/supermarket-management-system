@@ -16,7 +16,7 @@ namespace Supermarket_Management_System.ViewModels.CustomValidations
             {
                 return new ValidationResult("The quantity to sell has to be greater than zero.");
             }
-            var product = ProductRepository.GetProductsByID(salesViewModel.SelectedProductID);
+            var product = ProductRepository.GetProductByID(salesViewModel.SelectedProductID);
             if(product == null)
             {
                 return new ValidationResult("The selected product does not exist.");

@@ -8,7 +8,7 @@ using UseCases.DataStorePluginInterfaces;
 
 namespace Plugins.DataStore.InMemory
 {
-    internal class CategoriesInMemoryRepository : ICategoryRepository
+    public class CategoriesInMemoryRepository : ICategoryRepository
     {
         public List<Category> _categories = new()
         {

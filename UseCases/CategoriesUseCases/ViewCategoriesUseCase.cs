@@ -8,10 +8,10 @@ using UseCases.DataStorePluginInterfaces;
 
 namespace UseCases.CategoriesUseCases
 {
-    public class ViewCategoriesUseCase
+    public class ViewCategoriesUseCase : IViewCategoriesUseCase
     {
         private readonly ICategoryRepository categoryRepository;
-        public ViewCategoriesUseCase(ICategoryRepository categoryRepository) 
+        public ViewCategoriesUseCase(ICategoryRepository categoryRepository)
         {
             this.categoryRepository = categoryRepository;
         }

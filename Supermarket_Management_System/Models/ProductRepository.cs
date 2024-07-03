@@ -30,7 +30,7 @@
             }
         }
 
-        public static Product? GetProductsByID(int productID, bool loadCategory = false)
+        public static Product? GetProductByID(int productID, bool loadCategory = false)
         {
             var product = _products.FirstOrDefault(x => x.ProductID == productID);
             if (product != null)

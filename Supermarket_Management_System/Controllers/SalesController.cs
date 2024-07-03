@@ -17,7 +17,7 @@ namespace Supermarket_Management_System.Controllers
 
         public IActionResult SellProductPartial(int productID)
         {
-            var product = ProductRepository.GetProductsByID(productID);
+            var product = ProductRepository.GetProductByID(productID);
             return PartialView("_SellProduct", product);
         }
 
@@ -26,7 +26,7 @@ namespace Supermarket_Management_System.Controllers
             if(ModelState.IsValid)
             {
                 //return View(salesViewModel);
-                var prod = ProductRepository.GetProductsByID(salesViewModel.SelectedProductID);
+                var prod = ProductRepository.GetProductByID(salesViewModel.SelectedProductID);
                 if(prod != null)
                 {
                     TransactionRepository.AddTransaction(
@@ -41,7 +41,7 @@ namespace Supermarket_Management_System.Controllers
                     ProductRepository.UpdateProduct(salesViewModel.SelectedProductID, prod);
                 }
             }
-            var product = ProductRepository.GetProductsByID(salesViewModel.SelectedProductID);
+            var product = ProductRepository.GetProductByID(salesViewModel.SelectedProductID);
             salesViewModel.SelectedCategoryID = (product?.CategoryID == null)? 0:product.CategoryID.Value;
             salesViewModel.Categories = CategoriesRepository.GetCategories();
             return View("Index", salesViewModel);
