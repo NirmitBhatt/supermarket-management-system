@@ -1,5 +1,6 @@
 ﻿using Supermarket_Management_System.Models;
 using System.ComponentModel.DataAnnotations;
+using UseCases.ProductsUseCases;
 
 namespace Supermarket_Management_System.ViewModels.CustomValidations
 {
@@ -16,7 +17,8 @@ namespace Supermarket_Management_System.ViewModels.CustomValidations
             {
                 return new ValidationResult("The quantity to sell has to be greater than zero.");
             }
-            var product = ProductRepository.GetProductByID(salesViewModel.SelectedProductID);
+            var getProductByIDUseCase = validationContext.GetService(typeof(IViewSelectedProductUseCase)) as IViewSelectedProductUseCase;
+            var product = getProductByIDUseCase?.Execute(salesViewModel.SelectedProductID);
             if(product == null)
             {
                 return new ValidationResult("The selected product does not exist.");
