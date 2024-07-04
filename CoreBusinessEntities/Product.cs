@@ -22,6 +22,7 @@ namespace CoreBusinessEntities
         [Required, Range(1, int.MaxValue, ErrorMessage = "Cannot add product with less than 1 quantity")]
         public int? Quantity {  get; set; }
 
+        //navigation property for ef core
         public Category? Category { get; set; }
     }
 }
