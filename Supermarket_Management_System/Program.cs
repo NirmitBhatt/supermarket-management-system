@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using Plugins.DataStore.InMemory;
+using Plugins.DataStore.SQL;
 using UseCases.CategoriesUseCases;
 using UseCases.DataStorePluginInterfaces;
 using UseCases.ProductsUseCases;
@@ -11,6 +13,11 @@ namespace Supermarket_Management_System
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<MarketContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("SupermarketManagement"));
+            });
 
             builder.Services.AddControllersWithViews();
 
