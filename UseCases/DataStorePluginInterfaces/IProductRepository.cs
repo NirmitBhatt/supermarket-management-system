@@ -6,7 +6,7 @@ namespace UseCases.DataStorePluginInterfaces
     {
         void AddProduct(Product product);
         void DeleteProduct(int productID);
-        Product GetProductByID(int productID, bool loadCategory = false);
+        Product? GetProductByID(int productID, bool loadCategory = false);
         IEnumerable<Product> GetProducts(bool loadCategory);
         IEnumerable<Product> GetProductsByCategoryID(int categoryID);
         void UpdateProduct(int productID, Product product);
