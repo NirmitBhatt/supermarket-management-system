@@ -51,17 +51,40 @@ namespace Plugins.DataStore.SQL
 
         public IEnumerable<Product> GetProducts(bool loadCategory)
         {
-            throw new NotImplementedException();
+            if (loadCategory)
+            {
+                return db.Products.Include(x => x.Category)
+                    .OrderBy(x => x.CategoryID)
+                    .ToList();
+            }
+            else
+            {
+                return db.Products.OrderBy(x => x.CategoryID).ToList();
+            }
         }
 
         public IEnumerable<Product> GetProductsByCategoryID(int categoryID)
         {
-            throw new NotImplementedException();
+             return db.Products.Where(x => x.CategoryID == categoryID).ToList();
         }
 
         public void UpdateProduct(int productID, Product product)
         {
-            throw new NotImplementedException();
+            if(productID != product.ProductID)
+            {
+                return;
+            }
+            var prod = db.Products.Find(productID);
+            if (prod == null)
+            {
+                return;
+            }
+            prod.CategoryID = product.CategoryID;
+            prod.ProductName = product.ProductName;
+            prod.Price = product.Price;
+            prod.Quantity = product.Quantity;
+
+            db.SaveChanges();
         }
     }
 }
